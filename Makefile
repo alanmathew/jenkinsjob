@@ -140,7 +140,8 @@ status:
 	fi
 	@echo ""
 	@echo "Python dependencies:"
-	@python -c "try:\n    import jenkins, pandas, numpy, yaml; print('✅ Core dependencies available')\nexcept ImportError as e:\n    print('❌ Missing core dependencies:', e)\ntry:\n    import sklearn; print('✅ ML dependencies available')\nexcept ImportError:\n    print('ℹ️  ML dependencies not installed (optional)')"
+	@python -c "import jenkins, pandas, numpy, yaml; print('✅ Core dependencies available')" 2>/dev/null || echo "❌ Missing core dependencies"
+	@python -c "import sklearn; print('✅ ML dependencies available')" 2>/dev/null || echo "ℹ️  ML dependencies not installed (optional)"
 
 # Development setup
 dev-setup: install setup
