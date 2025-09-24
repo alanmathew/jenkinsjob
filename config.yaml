@@ -1,0 +1,40 @@
+# Jenkins Configuration
+jenkins:
+  url: "http://localhost:8080"  # Replace with your Jenkins URL
+  username: ""                  # Jenkins username (or use environment variable JENKINS_USER)
+  token: ""                     # Jenkins API token (or use environment variable JENKINS_TOKEN)
+  timeout: 30                   # Request timeout in seconds
+
+# Data Collection Settings
+data_collection:
+  jobs:
+    include_disabled: false     # Include disabled jobs in collection
+    max_builds: 100            # Maximum number of builds to fetch per job
+    include_console_logs: false # Include console logs (can be large)
+  
+  output:
+    format: "json"             # Output format: json, csv, both
+    directory: "data"          # Output directory
+    timestamp_format: "%Y%m%d_%H%M%S"
+  
+  filters:
+    job_name_patterns: []      # Regex patterns to filter job names (empty = all jobs)
+    exclude_patterns: []       # Regex patterns to exclude jobs
+    date_range:
+      start_date: null         # Format: YYYY-MM-DD (null = no limit)
+      end_date: null           # Format: YYYY-MM-DD (null = no limit)
+
+# Analysis Settings
+analysis:
+  metrics:
+    - build_duration
+    - success_rate
+    - failure_patterns
+    - build_frequency
+    - queue_time
+  
+  export_features: true        # Export feature matrix for ML
+  aggregation_periods:         # Time periods for aggregation
+    - daily
+    - weekly
+    - monthly
